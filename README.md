@@ -19,7 +19,7 @@ The program is the Python/microPython code for Google HPS project 2023
 
 
 ## The file structure of RP2040 in Thonny
-![image](https://github.com/kevinsky-chen/HPS_Watch_Team1/assets/56266480/28dc7ed8-a96a-4544-bb36-0f25ae761aed)
+![image](https://github.com/kevinsky-chen/HPS_Watch_Team1/assets/56266480/28dc7ed8-a96a-4544-bb36-0f25ae761aed)  
 Please note that:  
 - All the codes that runs on device put to the same folder (home directory)
 - Folders including fonts/, images/, lib/ are all contained in the device already, don't change it!
