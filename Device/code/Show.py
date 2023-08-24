@@ -55,6 +55,7 @@ if __name__=='__main__':
     touch = myCST816T(mode=0)   # Touch chip
     #led = Pin(LED_GPx, Pin.OUT)
     data = ""
+    isActive = True      # Display on(True)/off(False)
     #tim.init(freq=2.5, mode=Timer.PERIODIC, callback=tick)
     
     # read files
@@ -62,7 +63,7 @@ if __name__=='__main__':
     x = 96
     y = 96
     BMP_W = 48
-    BMP_H = 48  #size
+    BMP_H = 48  # size
     mypath = "/images/"  #圖檔的位置
 
     """files = listdir(mypath)
@@ -73,9 +74,8 @@ if __name__=='__main__':
             print(fullpath)
     """
     
-    showColor("black") # reset畫面
-    print(mypath + "UI_start.bmp")
-    showImage(mypath + "warning.bmp", x, y)
+    #showColor("black") 
+    showImage(mypath + "UI_start.bmp", x, y)  # reset畫面
 
     while True:
         if uart.any():
@@ -86,27 +86,36 @@ if __name__=='__main__':
             #display.fill(WHITE)
             #display.clear(x, y, BMP_W, BMP_H, WHITE)
             
-            file_name = "icon_16x16"  # 預設
-            if data== b'1':  #訊號 == 1 # direction up
-                showColor("black")
-                file_name = "sample_48x48"
-                print("mode 1!")
-            elif data== b'2': #訊號 == 2 # direction down
-                showColor("red")
-                file_name = "icon_16x16"
-                print("mode 2!")
-            elif data== b'3': #訊號 == 3 # fire warning
-                showColor("white")
-                file_name = "icons8-down-30"
-                print("mode 3!")
-            elif data== b'4': #訊號 == 4 # car hone
-                showText("Google HPS")
-                print("mode 4!")
+            file_name = "icon_16x16"  # 預設圖片(接收到奇怪的訊號，至少會顯示一張預設圖，不會產生error)
+            if data== b'x':  #訊號 == x #關掉螢幕(沒在用省電)
+                isActive = False
+                display.off()
+            elif data== b"o":  #訊號 == o #開啟螢幕(初始使用)
+                isActive = True
+                display.on()
             else:
-                pass # 還有很多case，可以有對應的文字與icon
-            
-            print(mypath + file_name + ".bmp")
-            showImage(mypath + file_name + ".bmp", x, y) # show圖片: 只能是.bmp format
+                ### TODO
+                if data== b'1':  #訊號 == 1 # direction up
+                    showColor("black")
+                    file_name = "sample_48x48"
+                    print("mode 1!")
+                elif data== b'2': #訊號 == 2 # direction down
+                    showColor("red")
+                    file_name = "icon_16x16"
+                    print("mode 2!")
+                elif data== b'3': #訊號 == 3 # fire warning
+                    showColor("white")
+                    file_name = "icons8-down-30"
+                    print("mode 3!")
+                elif data== b'4': #訊號 == 4 # car hone
+                    showText("Google HPS")
+                    print("mode 4!")
+                else:
+                    pass # 還有很多case，可以有對應的文字與icon
+                
+                print(mypath + file_name + ".bmp")
+                showImage(mypath + file_name + ".bmp", x, y) # show圖片: 只能是.bmp format
                 
         # refresh 畫面
-        showColor("white")
+        if not isActive:
+            showColor("white")
