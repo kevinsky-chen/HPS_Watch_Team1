@@ -86,7 +86,6 @@ if __name__=='__main__':
             #display.fill(WHITE)
             #display.clear(x, y, BMP_W, BMP_H, WHITE)
             
-            file_name = "icon_16x16"  # 預設圖片(接收到奇怪的訊號，至少會顯示一張預設圖，不會產生error)
             if data== b'x':  #訊號 == x #關掉螢幕(沒在用省電)
                 isActive = False
                 display.off()
@@ -97,25 +96,25 @@ if __name__=='__main__':
                 if isActive:
                     ### TODO
                     if data== b'1':  #訊號 == 1 # direction up
-                        showColor("black")
-                        file_name = "sample_48x48"
+                        #showColor("black")
+                        showImage(mypath + "icon_16x16.bmp", x, y) # show圖片: 只能是.bmp format
                         print("mode 1!")
                     elif data== b'2': #訊號 == 2 # direction down
-                        showColor("red")
-                        file_name = "icon_16x16"
+                        #showColor("red")
+                        showImage(mypath + "icon8-down-30.bmp", x, y) # show圖片: 只能是.bmp format
                         print("mode 2!")
                     elif data== b'3': #訊號 == 3 # fire warning
                         showColor("white")
-                        file_name = "icons8-down-30"
+                        showImage(mypath + "warning.bmp", x, y) # show圖片: 只能是.bmp format
                         print("mode 3!")
                     elif data== b'4': #訊號 == 4 # car hone
                         showText("Google HPS")
                         print("mode 4!")
+                    # else:
+                    #     pass # 還有很多case，可以有對應的文字與icon
                     else:
-                        pass # 還有很多case，可以有對應的文字與icon
-                    
-                    print(mypath + file_name + ".bmp")
-                    showImage(mypath + file_name + ".bmp", x, y) # show圖片: 只能是.bmp format
+                        print("Error BT signal!")
+                                     
                 
         # refresh 畫面
         if isActive:
