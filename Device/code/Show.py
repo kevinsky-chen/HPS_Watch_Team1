@@ -19,7 +19,7 @@ def showImage(filePath, x, y):
     time.sleep(1)
 
 # show字: 因為能顯示的圖片太小，所以需以字輔助
-def Text(text):
+def showText(text):
     textList = text.split()
     
     print(textList)
@@ -94,28 +94,29 @@ if __name__=='__main__':
                 isActive = True
                 display.on()
             else:
-                ### TODO
-                if data== b'1':  #訊號 == 1 # direction up
-                    showColor("black")
-                    file_name = "sample_48x48"
-                    print("mode 1!")
-                elif data== b'2': #訊號 == 2 # direction down
-                    showColor("red")
-                    file_name = "icon_16x16"
-                    print("mode 2!")
-                elif data== b'3': #訊號 == 3 # fire warning
-                    showColor("white")
-                    file_name = "icons8-down-30"
-                    print("mode 3!")
-                elif data== b'4': #訊號 == 4 # car hone
-                    showText("Google HPS")
-                    print("mode 4!")
-                else:
-                    pass # 還有很多case，可以有對應的文字與icon
-                
-                print(mypath + file_name + ".bmp")
-                showImage(mypath + file_name + ".bmp", x, y) # show圖片: 只能是.bmp format
+                if isActive:
+                    ### TODO
+                    if data== b'1':  #訊號 == 1 # direction up
+                        showColor("black")
+                        file_name = "sample_48x48"
+                        print("mode 1!")
+                    elif data== b'2': #訊號 == 2 # direction down
+                        showColor("red")
+                        file_name = "icon_16x16"
+                        print("mode 2!")
+                    elif data== b'3': #訊號 == 3 # fire warning
+                        showColor("white")
+                        file_name = "icons8-down-30"
+                        print("mode 3!")
+                    elif data== b'4': #訊號 == 4 # car hone
+                        showText("Google HPS")
+                        print("mode 4!")
+                    else:
+                        pass # 還有很多case，可以有對應的文字與icon
+                    
+                    print(mypath + file_name + ".bmp")
+                    showImage(mypath + file_name + ".bmp", x, y) # show圖片: 只能是.bmp format
                 
         # refresh 畫面
-        if not isActive:
+        if isActive:
             showColor("white")
