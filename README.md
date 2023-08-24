@@ -1,7 +1,7 @@
 # HPS_Watch_Team1
 The program is the Python/microPython code for Google HPS project 2023
 
-### The file structure tree is as follows:  (除了粗體之外的檔案均已經裝在裝置內，只有粗體的 code 儲存在此 repository內) 
+### The file structure tree is as follows: (除了粗體之外的檔案均已經裝在裝置內，只有粗體的 code 儲存在此 repository內)  
 -- Computer/                      => run on computer 
 ------ **Image_RGB_File2PixelRGB.py** => 將圖片轉成.txt，非.bmp輸入需用此 (***用不太到/說明用途 ***) </p>
 ------ Bt_RPI.py                  => 電腦端傳藍芽訊號程式 (需merge至其他電腦程式, a.k.a. 帽子端的程式)  
