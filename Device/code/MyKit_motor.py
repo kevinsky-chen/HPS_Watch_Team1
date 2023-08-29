@@ -1,6 +1,6 @@
 from machine import Pin, PWM
 from time import sleep
-class Motor:
+class myMotor:
     def __init__(self, pinNo):
         self.gpio = pinNo
         self._on = False
