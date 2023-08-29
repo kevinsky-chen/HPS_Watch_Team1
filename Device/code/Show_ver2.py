@@ -1,6 +1,7 @@
 import utime as time
 from machine import Pin, UART
 from MyKit_GC9A01 import myGC9A01, color # 自製的顯示模組
+DEBUG = False
 
 WHITE = color('white')
 BLACK = color('black')
@@ -14,7 +15,7 @@ def tick(timer):
 def showImage(filePath, x, y):
     display.load_microBMP(filePath, x, y)
     display.show()
-    time.sleep(1)
+    #time.sleep(1)
 
 # show字: 因為能顯示的圖片太小，所以需以字輔助
 def showText(text, x=100, y_up=50, y_down=140):
@@ -25,7 +26,7 @@ def showText(text, x=100, y_up=50, y_down=140):
     if(len(textList)>1): display.write_text(textList[1],x,y_down,3,BLACK) # second line
 
     display.show()
-    time.sleep(1)
+    #time.sleep(0.05)
     #showColor("white")
 
 # show背景色: 單一色，類似refresh 
@@ -66,7 +67,7 @@ if __name__=='__main__':
     mypath = "/images/"  #圖檔的位置
 
     #showColor("black") 
-    showImage(mypath + "UI_start.bmp", x_middle, y_middle)  # reset畫面
+    showImage(mypath + "UI.bmp", x_middle, y_middle)  # reset畫面
 
     while True:
         if uart.any():
@@ -92,40 +93,40 @@ if __name__=='__main__':
                         degree = data.split("b")[1]
                         showText(degree)
                         time.sleep(3)   # 震動3s
-                        print("mode d!")
+                        if(DEBUG): print("mode d!")
                     elif data== b'0': #訊號 == 0 # alarm
                         #showColor("red")
                         showImage(mypath + "alarm.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(3)   # 震動3s
-                        print("mode 0!")
+                        if(DEBUG): print("mode 0!")
                     elif data== b'1': #訊號 == 3 # call name
                         showColor("white")
                         showImage(mypath + "name.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(1)   # 震動1s
                         
-                        print("mode 1!")
+                        if(DEBUG): print("mode 1!")
                     elif data== b'2': #訊號 == 3 # police_car
                         showColor("red")
                         showImage(mypath + "police_car.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(3)   # 震動3s
                         
-                        print("mode 2!")
+                        if(DEBUG): print("mode 2!")
                     elif data== b'3': #訊號 == 3 # emergency
                         showColor("red")
                         showImage(mypath + "emergency.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(5)   # 震動5s
-                        print("mode 1!")
+                        if(DEBUG): print("mode 1!")
                     elif data== b'4': #訊號 == 3 # ambulence
                         showColor("red")
                         showImage(mypath + "ambulance.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(3)   # 震動3s
 
-                        print("mode 4!")
+                        if(DEBUG): print("mode 4!")
                     elif data== b'5': #訊號 == 5 # plane
                         showColor("white")
                         showImage(mypath + "plane.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(2)   # 震動2s
-                        print("mode 5!")
+                        if(DEBUG): print("mode 5!")
                     # else:
                     #     pass # 還有很多case，可以有對應的文字與icon
                     else:
@@ -133,6 +134,10 @@ if __name__=='__main__':
                     vibrator.value(0)
                                      
                 
-        # refresh 畫面
-        if isActive:
-            showColor("white")
+            # refresh 畫面
+            if isActive:
+                showColor("white")
+                showImage(mypath + "UI.bmp", x_middle, y_middle)  # reset畫面
+                time.sleep(0.05)
+                showColor("white")
+
