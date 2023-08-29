@@ -53,6 +53,7 @@ if __name__=='__main__':
     #tim = Timer()
     display = myGC9A01()  # Display chip
     touch = myCST816T(mode=0)   # Touch chip
+    motor= myMotor(Pin(28))
     #led = Pin(LED_GPx, Pin.OUT)
     data = ""
     isActive = True      # Display on(True)/off(False)
@@ -106,6 +107,9 @@ if __name__=='__main__':
                     elif data== b'3': #訊號 == 3 # fire warning
                         showColor("white")
                         showImage(mypath + "warning.bmp", x, y) # show圖片: 只能是.bmp format
+                        motor.setSpeed(50)
+                        sleep(1)
+                        motor.off()
                         print("mode 3!")
                     elif data== b'4': #訊號 == 4 # car hone
                         showText("Google HPS")
