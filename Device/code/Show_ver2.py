@@ -85,55 +85,52 @@ if __name__=='__main__':
             else:
                 if isActive:
                     ### TODO
+                    vibrator.value(1)
                     if b'd' in data:  #訊號 == 1 # direction 0~360 degree
                         #showColor("black")
                         showImage(mypath + "direction.bmp", x_middle, y_up) # show圖片: 只能是.bmp format
                         degree = data.split("b")[1]
                         showText(degree)
+                        time.sleep(3)   # 震動3s
                         print("mode d!")
                     elif data== b'0': #訊號 == 0 # alarm
                         #showColor("red")
                         showImage(mypath + "alarm.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
+                        time.sleep(3)   # 震動3s
                         print("mode 0!")
                     elif data== b'1': #訊號 == 3 # call name
-                        vibrator.value(1)
                         showColor("white")
                         showImage(mypath + "name.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(1)   # 震動1s
-                        vibrator.value(0)
+                        
                         print("mode 1!")
-                    elif data== b'2': #訊號 == 3 # car hone
-                        vibrator.value(1)
+                    elif data== b'2': #訊號 == 3 # police_car
                         showColor("red")
                         showImage(mypath + "police_car.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(3)   # 震動3s
-                        vibrator.value(0)
+                        
                         print("mode 2!")
                     elif data== b'3': #訊號 == 3 # emergency
-                        vibrator.value(1)
                         showColor("red")
                         showImage(mypath + "emergency.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
-                        time.sleep(3)   # 震動3s
-                        vibrator.value(0)
+                        time.sleep(5)   # 震動5s
                         print("mode 1!")
                     elif data== b'4': #訊號 == 3 # ambulence
-                        vibrator.value(1)
                         showColor("red")
                         showImage(mypath + "ambulance.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(3)   # 震動3s
-                        vibrator.value(0)
+
                         print("mode 4!")
-                    elif data== b'5': #訊號 == 5 # ambulence
-                        vibrator.value(1)
+                    elif data== b'5': #訊號 == 5 # plane
                         showColor("white")
                         showImage(mypath + "plane.bmp", x_middle, y_middle) # show圖片: 只能是.bmp format
                         time.sleep(2)   # 震動2s
-                        vibrator.value(0)
                         print("mode 5!")
                     # else:
                     #     pass # 還有很多case，可以有對應的文字與icon
                     else:
                         print("Error BT signal!")
+                    vibrator.value(0)
                                      
                 
         # refresh 畫面
