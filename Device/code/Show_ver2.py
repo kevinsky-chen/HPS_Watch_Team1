@@ -1,8 +1,6 @@
-from machine import Pin, UART, Timer
 import utime as time
-from MyKit_CST816T import myCST816T  # 自製的觸控模組
+from machine import Pin, UART
 from MyKit_GC9A01 import myGC9A01, color # 自製的顯示模組
-from os import listdir
 
 WHITE = color('white')
 BLACK = color('black')
@@ -48,33 +46,24 @@ def showColor(i):
 #main
 if __name__=='__main__':
     #device definition
+    vibrator = Pin(28, Pin.OUT)
     uart = UART(0,38400, tx=Pin(16), rx=Pin(17))  # 藍芽傳訊:TX pin接GPIO16, RX pin接GPIO17
     uart.init(38400)    # 藍芽傳訊: 設定初始 baud rate
     #tim = Timer()
     display = myGC9A01()  # Display chip
-    touch = myCST816T(mode=0)   # Touch chip
-    motor= myMotor(Pin(28))
     #led = Pin(LED_GPx, Pin.OUT)
     data = ""
     isActive = True      # Display on(True)/off(False)
     #tim.init(freq=2.5, mode=Timer.PERIODIC, callback=tick)
     
     # read files
-    img_list = []
+    #img_list = []
     x = 96
     y = 96
     BMP_W = 48
     BMP_H = 48  # size
     mypath = "/images/"  #圖檔的位置
 
-    """files = listdir(mypath)
-    for filename in listdir(mypath):
-        if filename.endswith(".bmp"):
-            fullpath = (mypath + "/" + filename)
-            img_list.append(fullpath)
-            print(fullpath)
-    """
-    
     #showColor("black") 
     showImage(mypath + "UI_start.bmp", x, y)  # reset畫面
 
@@ -82,8 +71,7 @@ if __name__=='__main__':
         if uart.any():
             time.sleep(0.01)
             data = uart.readline().strip()
-            print(data)
-
+            #print(data)
             #display.fill(WHITE)
             #display.clear(x, y, BMP_W, BMP_H, WHITE)
             
@@ -105,11 +93,11 @@ if __name__=='__main__':
                         showImage(mypath + "icon8-down-30.bmp", x, y) # show圖片: 只能是.bmp format
                         print("mode 2!")
                     elif data== b'3': #訊號 == 3 # fire warning
+                        vibrator.value(1)
                         showColor("white")
                         showImage(mypath + "warning.bmp", x, y) # show圖片: 只能是.bmp format
-                        motor.setSpeed(50)
-                        sleep(1)
-                        motor.off()
+                        time.sleep(1)
+                        vibrator.value(0)
                         print("mode 3!")
                     elif data== b'4': #訊號 == 4 # car hone
                         showText("Google HPS")
