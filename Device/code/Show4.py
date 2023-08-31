@@ -59,20 +59,19 @@ if __name__=='__main__':
     
     # read files
     #img_list = []
-    x_middle = 70
-    y_middle = 70
+    x_middle = 88
+    y_middle = 88
     y_up = 50
     y_down = 140
-    BMP_W = 100
-    BMP_H = 100  # size
+    BMP_W = 64
+    BMP_H = 64  # size
     mypath = "/images/"  #圖檔的位置
 
     #vibrator.value(1)
-    showColor("red")
+    showColor("white")
     showImage(mypath + "UI.bmp", x_middle, y_middle)  # reset畫面
     
     while True:
-        vibrator.value(0)
         if uart.any():
             time.sleep(0.01)
             data = uart.readline().strip()
