@@ -115,7 +115,7 @@ if __name__=='__main__':
                                 showText("SE")
 
                             #showText(degree)
-                            time.sleep(3)   # 震動3s
+                            time.sleep(1)   # 震動1s
                             if(DEBUG): print("mode d!")
                         elif data== b'0': #訊號 == 0 # fire alarm
                             showColor("red")
